@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traverse Computation</title>
+    <style>
+        /* General Reset */
+        body, h1, h2, label, input, button {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #0077cc;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #0077cc;
+            outline: none;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            background: #0077cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #005fa3;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4fc;
+            border-left: 4px solid #0077cc;
+            border-radius: 5px;
+        }
+
+        .result h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #0077cc;
+        }
+
+        .result p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Traverse Computation</h1>
+        <form id="traverseForm">
+            <label for="north">North:</label>
+            <input type="number" id="north" name="north" placeholder="Enter North Coordinate">
+
+            <label for="east">East:</label>
+            <input type="number" id="east" name="east" placeholder="Enter East Coordinate">
+
+            <label for="bearing">Bearing:</label>
+            <input type="text" id="bearing" name="bearing" placeholder="Enter Bearing">
+
+            <label for="distance">Distance:</label>
+            <input type="number" id="distance" name="distance" placeholder="Enter Distance">
+
+            <button type="button" onclick="calculateTraverse()">Compute</button>
+        </form>
+
+        <div id="result" class="result" style="display: none;">
+            <h2>Results</h2>
+            <p id="northResult"></p>
+            <p id="eastResult"></p>
+        </div>
+    </div>
+
+    <script>
+    function calculateTraverse() {
+        const north = parseFloat(document.getElementById('north').value) || 0;
+        const east = parseFloat(document.getElementById('east').value) || 0;
+        const bearing = parseFloat(document.getElementById('bearing').value) || 0;
+        const distance = parseFloat(document.getElementById('distance').value) || 0;
+
+        const radianBearing = (Math.PI / 180) * bearing;
+
+        const deltaNorth = distance * Math.cos(radianBearing);
+        const deltaEast = distance * Math.sin(radianBearing);
+
+        const newNorth = north + deltaNorth;
+        const newEast = east + deltaEast;
+
+        document.getElementById('northResult').textContent = `New North: ${newNorth.toFixed(3)}`;
+        document.getElementById('eastResult').textContent = `New East: ${newEast.toFixed(3)}`;
+
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+    </script>
+</body>
+</html>
